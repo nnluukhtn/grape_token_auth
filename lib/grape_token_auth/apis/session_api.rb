@@ -28,8 +28,9 @@ module GrapeTokenAuth
         env['rack.session'] ||= {}
         data.store_resource(resource, base.resource_scope)
         data.authed_with_token = false
+        auth_token = resource.create_new_auth_token
         status 200
-        present data: resource
+        present data: resource, token: auth_token
       end
 
       base.delete '/sign_out' do
